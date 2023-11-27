@@ -1,0 +1,8 @@
+.header__mob-menu_open {
+  display: flex;
+  height: 142px;
+  padding: 0;
+  margin: 0;
+
+  transition: height 0.3s linear;
+}

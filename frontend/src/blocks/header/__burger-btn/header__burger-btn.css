@@ -1,0 +1,11 @@
+.header__burger-btn {
+  margin: 0 30px 0 0;
+  display: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header__burger-btn {
+    display: block;
+  }
+}

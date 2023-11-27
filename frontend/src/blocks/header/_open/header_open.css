@@ -1,0 +1,5 @@
+.header_open {
+  padding-top: 171px;
+
+  transition: padding-top 0.3s linear;
+}

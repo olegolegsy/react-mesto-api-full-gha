@@ -1,0 +1,37 @@
+.popup__cls-btn {
+  margin: 0;
+  padding: 0;
+
+  top: -40px;
+  right: -40px;
+
+  width: 32px;
+  height: 32px;
+  border: none;
+
+ position: absolute;
+ background-image: url(../../../images/popup__cls-btn_small.svg);
+ background-size: contain;
+ background-repeat: no-repeat;
+ background-color: rgba(0, 0, 0, 0);
+
+ z-index: 99;
+ cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .popup__cls-btn {
+    background-size: 20px;
+    width: 20px;
+    height: 20px;
+
+    top: -36px;
+    right: 0px;
+
+    background-image: url(../../../images/popup__cls-btn_small.svg);
+  }
+}
+
+.popup__cls-btn:hover {
+  opacity: .6;
+}

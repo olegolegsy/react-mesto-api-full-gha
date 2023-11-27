@@ -1,0 +1,20 @@
+.header__btn {
+  margin: 0 0 0 24px;
+  padding: 0;
+
+  color: #a9a9a9;
+  text-decoration: none;
+  text-align: right;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header__btn {
+    margin: 0 30px 0 0;
+  }
+}

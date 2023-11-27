@@ -1,0 +1,9 @@
+.element__counter {
+    margin: 0 0 0 2px;
+    padding: 0;
+
+    width: 11px;
+    height: 13px;
+
+    color: #000000;
+  }

@@ -1,0 +1,21 @@
+.element__like {
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  min-width: 22px;
+  min-height: 19px;
+
+  position: relative;
+
+  background: url(../../../images/elements__like.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+
+  cursor: pointer;
+}
+
+.element__like:hover {
+  opacity: .5;
+}
