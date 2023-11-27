@@ -8,6 +8,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const notFoundError = 'NotFound';
+const { SECRET_KEY = 'mesto' } = process.env;
 
 // ====
 
@@ -118,7 +119,7 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'mesto', {
+      const token = jwt.sign({ _id: user._id }, SECRET_KEY, {
         expiresIn: '7d',
       });
       res.status(200).send({ token });
