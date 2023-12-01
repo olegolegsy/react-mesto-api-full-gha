@@ -10,7 +10,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.13.174
+IP-адрес 158.160.77.36
 
 Frontend https://olegmesto.nomoredomainsmonster.ru
 
