@@ -5,7 +5,7 @@ import api from '../../utils/Api';
 function Card({ card, onCardClick, onDelete }) {
   // ================================================================== states/props ==================================================================
   const currentUser = useContext(CurrentUserContext);
-  const isOwn = card.owner === currentUser._id;
+  const isOwn = card.owner._id === currentUser._id;
 
   const [isLiked, setIsLiked] = useState(false);
   const [likeCounter, setLikeCounter] = useState(card.likes.length);

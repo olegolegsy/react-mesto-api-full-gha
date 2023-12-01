@@ -63,7 +63,7 @@ const addLike = (req, res, next) => {
   Card.findByIdAndUpdate(
     cardId,
     { $addToSet: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .orFail(new Error(notFoundError))
     .populate('likes')
@@ -88,7 +88,7 @@ const removeLike = (req, res, next) => {
   Card.findByIdAndUpdate(
     cardId,
     { $pull: { likes: req.user._id } },
-    { new: true }
+    { new: true },
   )
     .orFail(new Error(notFoundError))
     .populate('likes')
