@@ -98,7 +98,7 @@ class Api {
 
 // =============================================================================== api ===============================================================================
 const api = new Api({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'https://api.olegmesto.nomoredomainsmonster.ru',
 });
 
 export default api;

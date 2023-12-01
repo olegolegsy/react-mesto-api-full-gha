@@ -12,6 +12,6 @@
 
 IP-адрес 158.160.77.36
 
-Frontend https://olegmesto.nomoredomainsmonster.ru
+Frontend https://olegmesto.nomoredomainsmonster.ru/
 
-Backend https://api.olegmesto.nomoredomainsmonster.ru
+Backend https://api.olegmesto.nomoredomainsmonster.ru/
