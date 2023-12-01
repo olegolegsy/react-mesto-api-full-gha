@@ -8,6 +8,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const notFoundError = 'NotFound';
+const notValidID = 'NotValidID';
 const { NODE_ENV, JWT_SECRET = 'mesto' } = process.env;
 
 // ====
@@ -24,12 +25,14 @@ const getUsers = (req, res, next) => {
 // get 404 500
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
-    .orFail(new Error(notFoundError))
+    .orFail(new Error(notValidID))
     .then((user) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.message === notFoundError) {
+      if (err.message === notValidID) {
+        next(new BadRequestError('Пользователь по такому _id не найден'));
+      } else if (err.message === notFoundError) {
         next(new NotFoundError('Пользователь по такому _id не найден'));
       } else {
         next(err);
@@ -39,28 +42,26 @@ const getUserById = (req, res, next) => {
 
 // post 400 500
 const addNewUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
 
   bcrypt
     .hash(password, 10)
-    .then((hash) =>
-      User.create({
-        name,
-        about,
-        avatar,
-        email,
-        password: hash,
-      })
-    )
-    .then((user) =>
-      res.status(201).send({
-        name: user.name,
-        about: user.about,
-        avatar: user.avatar,
-        _id: user._id,
-        email: user.email,
-      })
-    )
+    .then((hash) => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
+    .then((user) => res.status(201).send({
+      name: user.name,
+      about: user.about,
+      avatar: user.avatar,
+      _id: user._id,
+      email: user.email,
+    }))
     .catch((err) => {
       if (err.code === 11000) {
         next(new ConflictError('Пользователь с таким email уже есть'));
@@ -79,7 +80,7 @@ const editUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   )
     .orFail(new Error(notFoundError))
     .then((user) => res.send(user))
@@ -101,7 +102,7 @@ const editUserAvatar = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { avatar },
-    { new: 'true', runValidators: true }
+    { new: 'true', runValidators: true },
   )
     .orFail(new Error(notFoundError))
     .then((user) => res.send(user))
@@ -126,7 +127,7 @@ const login = (req, res, next) => {
         NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
         {
           expiresIn: '7d',
-        }
+        },
       );
       res.status(200).send({ token });
     })

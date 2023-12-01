@@ -29,6 +29,26 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import MainPage from './MainPage/MainPage';
 
 function App() {
+  // ================================================================== states ==================================================================
+  // 3
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false); // ui state
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false); // ui state
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false); // ui state
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false); // ui state
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false); // ui state
+  const [isTooltipPopupOpen, setIsTooltipPopupOpen] = useState(false); // ui state
+
+  // card
+  const [cards, setCards] = useState([]); // app data (user's data)
+  const [selectedCard, setSelectedCard] = useState({}); // app data (user's data)
+  const [delCardId, setDelCardId] = useState(''); // app data (user's data)
+
+  const [currentUser, setCurrentUser] = useState({}); // app data (user's data)
+  const [userEmail, setUserEmail] = useState(''); // app data (user's data)
+
+  // routes
+  const [isSuccess, setIsSuccess] = useState(false); // app data (user's data)
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // app data (user's data)
   const navigate = useNavigate();
   // ================================================================== handle funcs ==================================================================
   // 1
@@ -81,19 +101,19 @@ function App() {
   }, []);
 
   // ================================================================== side effs and APIs ==================================================================
-  // 2
-  // on mount only
   useEffect(() => {
-    Promise.all([
-      api.getUserInfo(localStorage.jwt),
-      api.getCards(localStorage.jwt),
-    ])
-      .then(([userData, cardsData]) => {
-        setCurrentUser(userData);
-        setCards(cardsData);
-      })
-      .catch((err) => console.error(`Ошибка: ${err}`));
-  }, []);
+    if (isLoggedIn) {
+      Promise.all([
+        api.getUserInfo(localStorage.jwt),
+        api.getCards(localStorage.jwt),
+      ])
+        .then(([userData, cardsData]) => {
+          setCurrentUser(userData);
+          setCards(cardsData);
+        })
+        .catch((err) => console.error(`Ошибка: ${err}`));
+    }
+  }, [isLoggedIn]);
 
   // with dep (чтобы неразлогиниться)
   useEffect(() => {
@@ -191,27 +211,6 @@ function App() {
         console.error(`Ошибка: ${err}`);
       });
   };
-
-  // ================================================================== states ==================================================================
-  // 3
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false); // ui state
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false); // ui state
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false); // ui state
-  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false); // ui state
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false); // ui state
-  const [isTooltipPopupOpen, setIsTooltipPopupOpen] = useState(false); // ui state
-
-  // card
-  const [cards, setCards] = useState([]); // app data (user's data)
-  const [selectedCard, setSelectedCard] = useState({}); // app data (user's data)
-  const [delCardId, setDelCardId] = useState(''); // app data (user's data)
-
-  const [currentUser, setCurrentUser] = useState({}); // app data (user's data)
-  const [userEmail, setUserEmail] = useState(''); // app data (user's data)
-
-  // routes
-  const [isSuccess, setIsSuccess] = useState(false); // app data (user's data)
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // app data (user's data)
 
   // ================================================================== listeners ==================================================================
   // 4
