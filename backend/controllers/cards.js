@@ -9,7 +9,6 @@ const notFoundError = 'NotFound';
 // get 500
 const getCards = (req, res, next) => {
   Card.find({})
-    .populate('likes')
     .then((cards) => res.send(cards))
     .catch((err) => next(err));
 };
@@ -66,7 +65,6 @@ const addLike = (req, res, next) => {
     { new: true },
   )
     .orFail(new Error(notFoundError))
-    .populate('likes')
     .then((card) => {
       res.status(200).send(card);
     })
@@ -91,7 +89,6 @@ const removeLike = (req, res, next) => {
     { new: true },
   )
     .orFail(new Error(notFoundError))
-    .populate('likes')
     .then((card) => {
       res.status(200).send(card);
     })

@@ -8,7 +8,6 @@ const NotFoundError = require('../errors/NotFoundError');
 const ConflictError = require('../errors/ConflictError');
 
 const notFoundError = 'NotFound';
-const notValidID = 'NotValidID';
 const { NODE_ENV, JWT_SECRET = 'mesto' } = process.env;
 
 // ====
@@ -25,12 +24,12 @@ const getUsers = (req, res, next) => {
 // get 404 500
 const getUserById = (req, res, next) => {
   User.findById(req.params.userId)
-    .orFail(new Error(notValidID))
+    .orFail(new Error(notFoundError))
     .then((user) => {
       res.send(user);
     })
     .catch((err) => {
-      if (err.message === notValidID) {
+      if (err instanceof mongoose.Error.CastError) {
         next(new BadRequestError('Пользователь по такому _id не найден'));
       } else if (err.message === notFoundError) {
         next(new NotFoundError('Пользователь по такому _id не найден'));
